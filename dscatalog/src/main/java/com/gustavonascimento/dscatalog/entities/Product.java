@@ -29,7 +29,7 @@ public class Product implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@NotBlank(message = "O campo nome é obrigatório")
-	@Size(min = 6, max = 80, message = "O campo nome deve conter entre 6 e 80 caracteres.")
+	@Size(min = 3, max = 80, message = "O campo nome deve conter entre 6 e 80 caracteres.")
 	private String name;
 	@NotBlank(message = "O campo descrição é obrigatório")
 	@Column(columnDefinition = "TEXT")
