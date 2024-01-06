@@ -1,14 +1,18 @@
 package com.gustavonascimento.dscatalog.entities;
 
 import java.io.Serializable;
+import java.time.Instant;
 import java.util.Objects;
 
 import com.gustavonascimento.dscatalog.entities.dto.CategoryDTO;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -25,6 +29,10 @@ public class Category implements Serializable {
 	@NotBlank(message = "O campo nome é obrigatório")
 	@Size(min = 6, max = 60, message = "O campo nome deve conter entre 6 e 60 caracteres.")
 	private String name;
+	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+	private Instant createdAt;
+	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+	private Instant updateAt;
 
 	public Category() {
 	}
@@ -35,8 +43,8 @@ public class Category implements Serializable {
 	}
 
 	public Category(CategoryDTO entity) {
-		this.id=entity.getId();
-		this.name=entity.getName();
+		this.id = entity.getId();
+		this.name = entity.getName();
 	}
 
 	public Long getId() {
@@ -51,8 +59,25 @@ public class Category implements Serializable {
 		this.name = name;
 	}
 
-	@Override
+	public Instant getCreatedAt() {
+		return createdAt;
+	}
 
+	public Instant getUpdateAt() {
+		return updateAt;
+	}
+
+	@PrePersist
+	public void prePersist() {
+		createdAt = Instant.now();
+	}
+	
+	@PreUpdate
+	public void preUpdate() {
+		updateAt = Instant.now();
+	}
+	
+	@Override
 	public int hashCode() {
 		return Objects.hash(id);
 	}
