@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import com.gustavonascimento.dscatalog.services.exceptions.DataBaseException;
 import com.gustavonascimento.dscatalog.services.exceptions.ResourceNotFoundException;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -23,5 +24,16 @@ public class ResourceExceptionHandler {
 		err.setMessage(e.getMessage());
 		err.setPath(request.getRequestURI());
 		return ResponseEntity.status(HttpStatus.NOT_FOUND.value()).body(err);
+	}
+	
+	@ExceptionHandler(DataBaseException.class)
+	public ResponseEntity<StandardError> dataBaseViolation(DataBaseException e, HttpServletRequest request) {
+		StandardError err = new StandardError();
+		err.setTimestamp(Instant.now());
+		err.setStatus(HttpStatus.CONFLICT.value());
+		err.setError("Exceção de database");
+		err.setMessage(e.getMessage());
+		err.setPath(request.getRequestURI());
+		return ResponseEntity.status(HttpStatus.CONFLICT.value()).body(err);
 	}
 }
