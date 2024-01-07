@@ -29,9 +29,9 @@ public class Category implements Serializable {
 	@NotBlank(message = "O campo nome é obrigatório")
 	@Size(min = 6, max = 60, message = "O campo nome deve conter entre 6 e 60 caracteres.")
 	private String name;
-	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+	@Column(columnDefinition = "TIMESTAMP")
 	private Instant createdAt;
-	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+	@Column(columnDefinition = "TIMESTAMP")
 	private Instant updateAt;
 
 	public Category() {
