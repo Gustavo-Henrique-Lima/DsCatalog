@@ -38,7 +38,7 @@ public class Product implements Serializable {
 	private Double price;
 	@NotBlank(message = "O link da imagem do produto é obrigatória")
 	private String imgUrl;
-	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+	@Column(columnDefinition = "TIMESTAMP")
 	private Instant date;
 	@ManyToMany
 	@JoinTable(name = "tb_product_category", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
