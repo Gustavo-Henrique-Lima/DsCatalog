@@ -2,7 +2,9 @@ package com.gustavonascimento.dscatalog.entities;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import com.gustavonascimento.dscatalog.entities.dto.CategoryDTO;
 
@@ -11,6 +13,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
@@ -33,6 +36,8 @@ public class Category implements Serializable {
 	private Instant createdAt;
 	@Column(columnDefinition = "TIMESTAMP")
 	private Instant updateAt;
+	@ManyToMany(mappedBy = "categories")
+	private Set<Product> product = new HashSet<>();
 
 	public Category() {
 	}
@@ -59,6 +64,10 @@ public class Category implements Serializable {
 		this.name = name;
 	}
 
+	public Set<Product> getProduct() {
+		return product;
+	}
+
 	public Instant getCreatedAt() {
 		return createdAt;
 	}
@@ -71,12 +80,12 @@ public class Category implements Serializable {
 	public void prePersist() {
 		createdAt = Instant.now();
 	}
-	
+
 	@PreUpdate
 	public void preUpdate() {
 		updateAt = Instant.now();
 	}
-	
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
