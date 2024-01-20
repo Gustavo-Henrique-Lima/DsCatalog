@@ -16,6 +16,7 @@ import com.gustavonascimento.dscatalog.entities.User;
 import com.gustavonascimento.dscatalog.entities.dto.RoleDTO;
 import com.gustavonascimento.dscatalog.entities.dto.UserDTO;
 import com.gustavonascimento.dscatalog.entities.dto.UserInsertDTO;
+import com.gustavonascimento.dscatalog.entities.dto.UserUpdateDTO;
 import com.gustavonascimento.dscatalog.repositories.RoleRepository;
 import com.gustavonascimento.dscatalog.repositories.UserRepository;
 import com.gustavonascimento.dscatalog.services.exceptions.DataBaseException;
@@ -58,7 +59,7 @@ public class UserService {
 	}
 
 	@Transactional
-	public UserDTO update(Long id, UserDTO dto) {
+	public UserDTO update(Long id, UserUpdateDTO dto) {
 		try {
 			User entity = repository.getReferenceById(id);
 			copyDtoToEntity(dto, entity);
