@@ -6,28 +6,21 @@ import java.util.Set;
 
 import com.gustavonascimento.dscatalog.entities.User;
 
-<<<<<<< HEAD
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
-=======
->>>>>>> dd0078b39675b32bf70c9cd88311c43f6f244eb0
+
 public class UserDTO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	private Long id;
-<<<<<<< HEAD
 	@Size(min=5,max=60, message = "O campo nome deve conter entre 5 e 60 caracteres")
 	@NotBlank(message="O campo nome é obrigatório")
 	private String firstName;
 	private String lastName;
 	@Email(message = "Informe um email válido")
-=======
-	private String firstName;
-	private String lastName;
->>>>>>> dd0078b39675b32bf70c9cd88311c43f6f244eb0
 	private String email;
 	Set<RoleDTO> roles = new HashSet<>();
 
