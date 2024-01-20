@@ -1,11 +1,11 @@
 package com.gustavonascimento.dscatalog.controllers.exceptions;
 
 import java.time.Instant;
-import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -13,7 +13,6 @@ import com.gustavonascimento.dscatalog.services.exceptions.DataBaseException;
 import com.gustavonascimento.dscatalog.services.exceptions.ResourceNotFoundException;
 
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.validation.ConstraintViolationException;
 
 @ControllerAdvice
 public class ResourceExceptionHandler {
@@ -39,27 +38,18 @@ public class ResourceExceptionHandler {
 		err.setPath(request.getRequestURI());
 		return ResponseEntity.status(HttpStatus.CONFLICT.value()).body(err);
 	}
-	
-	@ExceptionHandler(ConstraintViolationException.class)
-	public ResponseEntity<ValidationError> validation(ConstraintViolationException e, HttpServletRequest request) {
-		HttpStatus status = HttpStatus.UNPROCESSABLE_ENTITY;
+
+	@ExceptionHandler(MethodArgumentNotValidException.class)
+	public ResponseEntity<ValidationError> validation(MethodArgumentNotValidException e, HttpServletRequest request) {
 		ValidationError err = new ValidationError();
 		err.setTimestamp(Instant.now());
-		err.setStatus(status.value());
+		err.setStatus(HttpStatus.UNPROCESSABLE_ENTITY.value());
 		err.setError("Exceção de validação");
-		err.setMessage("Ops! Alguma coisa deu errado");
+		err.setMessage(e.getMessage());
 		err.setPath(request.getRequestURI());
-		
-		List<FieldMessage> fieldMessages = e.getConstraintViolations()
-	            .stream()
-	            .map(violation -> new FieldMessage(
-	                    violation.getPropertyPath().toString(),
-	                    violation.getMessage()))
-	            .collect(Collectors.toList());
-		
-		err.setErrors(fieldMessages);
-		
-		return ResponseEntity.status(status).body(err);
+		for(FieldError f: e.getBindingResult().getFieldErrors()) {
+			err.addError(f.getField(), f.getDefaultMessage());
+		}
+		return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY.value()).body(err);
 	}
-
 }

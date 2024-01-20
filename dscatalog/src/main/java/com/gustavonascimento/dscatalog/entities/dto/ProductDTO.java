@@ -9,15 +9,28 @@ import java.util.Set;
 import com.gustavonascimento.dscatalog.entities.Category;
 import com.gustavonascimento.dscatalog.entities.Product;
 
+import jakarta.persistence.Column;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.PastOrPresent;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
+
 public class ProductDTO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	private Long id;
+	@Size(min=3, max = 60, message = "O nome deve conter entre 5 e 60 caracteres")
+	@NotBlank(message = "O nome do produto é obrigatório")
 	private String name;
+	@NotBlank(message = "O campo descrição é obrigatório")
+	@Column(columnDefinition = "TEXT")
 	private String description;
+	@Positive(message = "O preço deve ser um valor positivo")
 	private Double price;
+	@NotBlank(message = "O link da imagem do produto é obrigatória")
 	private String imgUrl;
+	@PastOrPresent(message = "A data do produto não pode ser futura")
 	private Instant date;
 	private List<CategoryDTO> categories = new ArrayList<>();
 

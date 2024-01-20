@@ -6,7 +6,6 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -15,9 +14,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "tb_product")
@@ -28,17 +24,10 @@ public class Product implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@NotBlank(message = "O campo nome é obrigatório")
-	@Size(min = 3, max = 80, message = "O campo nome deve conter entre 6 e 80 caracteres.")
 	private String name;
-	@NotBlank(message = "O campo descrição é obrigatório")
-	@Column(columnDefinition = "TEXT")
 	private String description;
-	@Min(value = 0)
 	private Double price;
-	@NotBlank(message = "O link da imagem do produto é obrigatória")
 	private String imgUrl;
-	@Column(columnDefinition = "TIMESTAMP")
 	private Instant date;
 	@ManyToMany
 	@JoinTable(name = "tb_product_category", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
