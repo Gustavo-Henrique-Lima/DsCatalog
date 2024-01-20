@@ -17,8 +17,6 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "tb_category")
@@ -29,8 +27,6 @@ public class Category implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@NotBlank(message = "O campo nome é obrigatório")
-	@Size(min = 6, max = 60, message = "O campo nome deve conter entre 6 e 60 caracteres.")
 	private String name;
 	@Column(columnDefinition = "TIMESTAMP")
 	private Instant createdAt;
