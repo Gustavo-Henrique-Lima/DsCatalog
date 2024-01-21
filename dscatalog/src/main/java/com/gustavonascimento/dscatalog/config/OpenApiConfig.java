@@ -13,11 +13,11 @@ import io.swagger.v3.oas.models.info.License;
 public class OpenApiConfig {
 
     @Bean
-    public OpenAPI dsmovieAPI() {
+    public OpenAPI dsEventPI() {
         return new OpenAPI()
            .info(new Info()
-           .title("DSMovie API")
-           .description("DSMovie Reference Project")
+           .title("DSCatalog API")
+           .description("API criada para estudo sobre principios do Spring")
            .version("v0.0.1")
            .license(new License()
            .name("Apache 2.0")
