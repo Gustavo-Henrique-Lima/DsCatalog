@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,9 +34,11 @@ public class CategoryController {
 
 	@Autowired
 	private CategoryService service;
-
+	
+	
 	@Operation(description = "Find all categories paged", summary = "Find All categories", responses = {
 			@ApiResponse(description = "Ok", responseCode = "200") })
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping
 	public ResponseEntity<Page<CategoryDTO>> findAll(@RequestParam(value = "page", defaultValue = "0") Integer page,
 			@RequestParam(value = "linesPerPage", defaultValue = "12") Integer linesPerPage,
