@@ -21,8 +21,12 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.gustavonascimento.dscatalog.entities.dto.CategoryDTO;
 import com.gustavonascimento.dscatalog.services.CategoryService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
+@Tag(name = "Categories", description = "Controller for categories")
 @RestController
 @RequestMapping(value = "/categories")
 public class CategoryController {
@@ -30,6 +34,8 @@ public class CategoryController {
 	@Autowired
 	private CategoryService service;
 
+	@Operation(description = "Find all categories paged", summary = "Find All categories", responses = {
+			@ApiResponse(description = "Ok", responseCode = "200") })
 	@GetMapping
 	public ResponseEntity<Page<CategoryDTO>> findAll(@RequestParam(value = "page", defaultValue = "0") Integer page,
 			@RequestParam(value = "linesPerPage", defaultValue = "12") Integer linesPerPage,
@@ -46,6 +52,10 @@ public class CategoryController {
 		return ResponseEntity.ok(entity);
 	}
 
+	@Operation(description = "Create a new category", summary = "Create a new category", responses = {
+			@ApiResponse(description = "Created", responseCode = "201"),
+			@ApiResponse(description = "Unauthorized", responseCode = "401"),
+			@ApiResponse(description = "Unprocessable Entity", responseCode = "422") })
 	@PostMapping
 	public ResponseEntity<CategoryDTO> insert(@Valid @RequestBody CategoryDTO entity) {
 		entity = service.insert(entity);
@@ -54,7 +64,7 @@ public class CategoryController {
 	}
 
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<CategoryDTO> update(@PathVariable Long id,@Valid @RequestBody CategoryDTO entity) {
+	public ResponseEntity<CategoryDTO> update(@PathVariable Long id, @Valid @RequestBody CategoryDTO entity) {
 		entity = service.update(id, entity);
 		return ResponseEntity.ok(entity);
 	}
