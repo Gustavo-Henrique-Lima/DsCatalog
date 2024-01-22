@@ -1,8 +1,8 @@
 # DsCatalog
 
-Este projeto é um CRUD simples de produtos e categorias, desenvolvido durante o Bootcamp Spring da escola DevSuperior. 
+Este projeto é um CRUD simples de produtos, categorias e usuários, desenvolvido durante o Bootcamp Spring da escola DevSuperior. 
 
-Ele foi criado para praticar os fundamentos básicos do Spring Framework.
+Ele foi criado para praticar os fundamentos de Validação e segurança do Spring Boot.
 
 ## Como Rodar o Projeto
 
@@ -45,10 +45,10 @@ Ele foi criado para praticar os fundamentos básicos do Spring Framework.
       Endpoint para adicionar um novo produto à base de dados.
     
     Atualizar Produto:
-      Endpoint para modificar os detalhes de um produto existente com base no ID.
+      Endpoint para modificar os dados de um produto existente com base no ID.
     
     Excluir Produto:
-      Endpoint para remover um produto da base de dados com base no ID.
+      Endpoint para remoção de produto da base de dados com base no ID.
   ### Categorias
 
       Listar Categorias:
@@ -61,11 +61,29 @@ Ele foi criado para praticar os fundamentos básicos do Spring Framework.
         Endpoint para adicionar uma nova categoria à base de dados.
       
       Atualizar Categoria:
-        Endpoint para modificar os detalhes de uma categoria existente com base no ID.
+        Endpoint para modificar os dados de uma categoria existente com base no ID.
       
       Excluir Categoria:
-        Endpoint para remover uma categoria da base de dados com base no ID.
+        Endpoint para remoção de categoria da base de dados com base no ID.
+  ### Usuários
 
+      Listar Usuários:
+        Endpoint para recuperar a lista completa de usuários.
+      
+      Detalhes de Usuário:
+        Endpoint para obter detalhes de um usuário específico com base no ID.
+      
+      Cadastrar Usuário:
+        Endpoint para adicionar um novo usuário à base de dados.
+      
+      Atualizar Usuário:
+        Endpoint para modificar os dados de um usuário existente com base no ID.
+      
+      Excluir Usuário:
+        Endpoint para remoção de usuário da base de dados com base no ID. 
+  ### Login
+      Realizar login:
+        Endpoint para realizar login do usuário.
 ## Documentação
 
   O projeto inclui documentação detalhada para facilitar o entendimento e a interação com a aplicação.
