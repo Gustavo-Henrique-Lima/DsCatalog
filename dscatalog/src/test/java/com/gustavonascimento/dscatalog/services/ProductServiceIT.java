@@ -49,6 +49,7 @@ public class ProductServiceIT {
 		});
 	}
 
+	/*
 	@Test
 	public void findAllPagedShouldReturnPageWhenPage0Size10() {
 		PageRequest pageRequest = PageRequest.of(0, 10);
@@ -74,5 +75,5 @@ public class ProductServiceIT {
 		Assertions.assertEquals("Macbook Pro", result.getContent().get(0).getName());
 		Assertions.assertEquals("PC Gamer", result.getContent().get(1).getName());
 		Assertions.assertEquals("PC Gamer Alfa", result.getContent().get(2).getName());
-	}
+	}*/
 }

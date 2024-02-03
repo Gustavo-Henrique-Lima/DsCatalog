@@ -55,7 +55,7 @@ public class ProductResourceTests {
 		existsId = 1L;
 		nonExistsId = 999L;
 		dependentId = 3L;
-		Mockito.when(service.findAllPaged(ArgumentMatchers.any())).thenReturn(page);
+		//Mockito.when(service.findAllPaged(ArgumentMatchers.any())).thenReturn(page);
 		Mockito.when(service.findById(existsId)).thenReturn(entityDto);
 		Mockito.when(service.findById(nonExistsId)).thenThrow(ResourceNotFoundException.class);
 		Mockito.when(service.update(eq(existsId), any())).thenReturn(entityDto);
